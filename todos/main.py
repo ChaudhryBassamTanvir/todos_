@@ -1,6 +1,8 @@
-from fastapi import FastAPI # type: ignore
+from fastapi import FastAPI,Body,Query,Path # type: ignore
 import uvicorn # type: ignore
-from pydantic import BaseModel # type: ignore
+from pydantic import BaseModel# type: ignore
+from typing import Annotated
+
 app = FastAPI()
 
 class Todo(BaseModel):
@@ -14,8 +16,27 @@ car:Todo={
 }
 
 
+@app.get("/MainRoute")
+def  MainRoute(item:Annotated[int,Body()]): #Body saying k item integer type hai or body parameter hai ap ne value query me receive ni karni
+    result = item.dict()  #although poor format we use pandyntic
+    return result   
+  
+  
+ #by default 
+@app.get("/ParamRoute")  #in first we define types but in second we can define conditions
+def  ParamRoute(item:Annotated[str,Query(max_length=10,min_length=4)]):  
+    return item 
 
-app = FastAPI()
+@app.get("/Pattern")                                                        #start from fix and than a letters caps or num
+def  ParamRoute(item:Annotated[str,Query(max_length=10,min_length=4,pattern="^fix[a-zA-Z0-9]")]):  
+    return item 
+
+#work with body parameter
+@app.get("/Path/{id}")  #gt greater than,,,, ge greater than or equal, lt lessthan 
+def  Path(id:Annotated[int,Path(le=5 , ge=3 )]):  
+    return id
+
+
 
 @app.get("/servermain/{id}/assignment/{assignment_id}")  # type: ignore
 def MainRoute(id: int, assignment_id: int, query: str, id_num: int,item:Todo):
