@@ -13,6 +13,22 @@ car:Todo={
     "title":"bahs"
 }
 
+
+
+app = FastAPI()
+
+@app.get("/servermain/{id}/assignment/{assignment_id}")  # type: ignore
+def MainRoute(id: int, assignment_id: int, query: str, id_num: int,item:Todo):
+  return item
+    # return {
+    #     "message": "Server is up and running",
+    #     "id num": id_num,
+    #     "query": query,
+    #     "than my dynamic id": id,
+    #     "than dynamic assignid": assignment_id
+    # }
+
+
 students =[{
     "userName":"Hashim Kardar",
     "age": 20,
@@ -60,4 +76,4 @@ def start():
     uvicorn.run("todos.main:app", host="127.0.0.1", port=8000,reload=True)
 
 
- 
+                
