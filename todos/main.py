@@ -9,6 +9,10 @@ class Todo(BaseModel):
     id:int
     title:str
     
+class User(BaseModel):
+     userName:str
+     userDescription:str
+    
 
 car:Todo={
     "id":1,
@@ -35,6 +39,12 @@ def  ParamRoute(item:Annotated[str,Query(max_length=10,min_length=4,pattern="^fi
 @app.get("/Path/{id}")  #gt greater than,,,, ge greater than or equal, lt lessthan 
 def  Path(id:Annotated[int,Path(le=5 , ge=3 )]):  
     return id
+
+#agr ek hai tu keys nahi banni pre ge wo object direct ho ga lekin agr 2 hain tu keyt banni pre ge 
+@app.get("/item")
+def item(item:Todo ,user:User):
+    print(user)
+    return item
 
 
 
