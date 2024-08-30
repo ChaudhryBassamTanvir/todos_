@@ -40,9 +40,16 @@ def  ParamRoute(item:Annotated[str,Query(max_length=10,min_length=4,pattern="^fi
 def  Path(id:Annotated[int,Path(le=5 , ge=3 )]):  
     return id
 
-#agr ek hai tu keys nahi banni pre ge wo object direct ho ga lekin agr 2 hain tu keyt banni pre ge 
+#agr ek hai tu key nahi banni pre ge wo object direct ho ga lekin agr 2 hain tu keyt banni pre ge 
 @app.get("/item")
 def item(item:Todo ,user:User):
+    print(user)
+    return item
+
+
+
+@app.get("/item2")
+def item(item:Todo ,user:User,count:Annotated[int,Body()]):
     print(user)
     return item
 
